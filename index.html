@@ -3,38 +3,223 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>السؤال</title>
+<title>السؤال الأول</title>
 
 <style>
 *{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:"Cairo",Tahoma,sans-serif;
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Cairo,Tahoma,sans-serif;
 }
 
 body{
-    background:linear-gradient(135deg,#eef2ff,#dbeafe);
-    min-height:100vh;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    padding:20px;
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+background:linear-gradient(135deg,#2563eb,#7c3aed);
+padding:20px;
 }
 
-.card{
-    width:100%;
-    max-width:700px;
-    background:#fff;
-    border-radius:22px;
-    padding:30px;
-    box-shadow:0 15px 40px rgba(0,0,0,.12);
-    animation:show .5s;
+.container{
+width:100%;
+max-width:700px;
+background:rgba(255,255,255,.15);
+backdrop-filter:blur(15px);
+border:1px solid rgba(255,255,255,.2);
+border-radius:25px;
+padding:30px;
+color:white;
+box-shadow:0 15px 40px rgba(0,0,0,.25);
+animation:fade .5s;
 }
 
-@keyframes show{
-from{opacity:0;transform:translateY(20px)}
-to{opacity:1;transform:translateY(0)}
+@keyframes fade{
+from{opacity:0;transform:translateY(20px);}
+to{opacity:1;transform:translateY(0);}
+}
+
+h1{
+font-size:28px;
+margin-bottom:25px;
+line-height:1.7;
+}
+
+.option{
+display:block;
+background:rgba(255,255,255,.1);
+border:2px solid transparent;
+padding:18px;
+margin-bottom:15px;
+border-radius:15px;
+cursor:pointer;
+transition:.3s;
+line-height:1.8;
+}
+
+.option:hover{
+background:rgba(255,255,255,.25);
+border-color:white;
+}
+
+input{
+margin-left:10px;
+transform:scale(1.2);
+}
+
+button{
+width:100%;
+padding:16px;
+border:none;
+border-radius:15px;
+background:white;
+color:#2563eb;
+font-size:18px;
+font-weight:bold;
+cursor:pointer;
+transition:.3s;
+}
+
+button:hover{
+transform:scale(1.03);
+}
+
+button:disabled{
+background:#ccc;
+color:#666;
+cursor:not-allowed;
+}
+
+#message{
+margin-top:20px;
+text-align:center;
+font-size:18px;
+font-weight:bold;
+}
+
+#success{
+display:none;
+text-align:center;
+}
+
+#success h2{
+font-size:42px;
+margin-bottom:20px;
+}
+
+#success p{
+font-size:30px;
+font-weight:bold;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container" id="quiz">
+
+<h1>
+أي موقف من الآتي يعكس الحكمة بأفضل صورة؟
+</h1>
+
+<label class="option">
+<input type="radio" name="q" value="A">
+أ) قبل اتخاذ قرار قد يؤثر على الآخرين، استمع لكل الأطراف، وفكر في النتائج، ثم اتخذ قراره.
+</label>
+
+<label class="option">
+<input type="radio" name="q" value="B">
+ب) اتخذ القرار الذي يرضي أغلب الناس حتى لو لم يكن مقتنعًا به.
+</label>
+
+<label class="option">
+<input type="radio" name="q" value="C">
+ج) اتخذ القرار الذي يريحه شخصيًا حتى يتجنب المشكلات.
+</label>
+
+<label class="option">
+<input type="radio" name="q" value="D">
+د) أجّل اتخاذ القرار حتى لا يتحمل مسؤوليته.
+</label>
+
+<button id="btn" onclick="checkAnswer()">إرسال</button>
+
+<div id="message"></div>
+
+</div>
+
+<div class="container" id="success">
+
+<h2>🎉 الـ QR التاني</h2>
+
+<p>دخول وخروج</p>
+
+</div>
+
+<script>
+
+function checkAnswer(){
+
+const answer=document.querySelector('input[name="q"]:checked');
+
+if(!answer){
+alert("اختر إجابة أولاً");
+return;
+}
+
+if(answer.value==="A"){
+
+document.getElementById("quiz").style.display="none";
+document.getElementById("success").style.display="block";
+
+}else{
+
+startTimer();
+
+}
+
+}
+
+function startTimer(){
+
+let btn=document.getElementById("btn");
+btn.disabled=true;
+
+document.querySelectorAll("input").forEach(i=>i.disabled=true);
+
+let time=60;
+
+let timer=setInterval(()=>{
+
+document.getElementById("message").innerHTML=
+"❌ إجابة غير صحيحة<br><br>حاول مرة أخرى بعد <b>"+time+"</b> ثانية";
+
+time--;
+
+if(time<0){
+
+clearInterval(timer);
+
+btn.disabled=false;
+
+document.querySelectorAll("input").forEach(i=>{
+i.disabled=false;
+i.checked=false;
+});
+
+document.getElementById("message").innerHTML="";
+
+}
+
+},1000);
+
+}
+
+</script>
+
+</body>
+</html>to{opacity:1;transform:translateY(0)}
 }
 
 h2{
