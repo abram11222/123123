@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>السؤال</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:"Cairo",Tahoma,sans-serif;
+}
+
+body{
+    background:linear-gradient(135deg,#eef2ff,#dbeafe);
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:20px;
+}
+
+.card{
+    width:100%;
+    max-width:650px;
+    background:#fff;
+    border-radius:22px;
+    padding:30px;
+    box-shadow:0 15px 40px rgba(0,0,0,.12);
+    animation:show .5s;
+}
+
+@keyframes show{
+from{opacity:0;transform:translateY(20px)}
+to{opacity:1;transform:translateY(0)}
+}
+
+h2{
+    color:#1e3a8a;
+    margin-bottom:25px;
+    line-height:1.8;
+    font-size:24px;
+}
+
+.option{
+    display:block;
+    border:2px solid #e5e7eb;
+    border-radius:14px;
+    padding:16px;
+    margin-bottom:14px;
+    cursor:pointer;
+    transition:.25s;
+}
+
+.option:hover{
+    border-color:#2563eb;
+    background:#eff6ff;
+}
+
+.option input{
+    margin-left:10px;
+    transform:scale(1.2);
+}
+
+button{
+    width:100%;
+    border:none;
+    background:#2563eb;
+    color:#fff;
+    padding:16px;
+    border-radius:14px;
+    font-size:18px;
+    cursor:pointer;
+    transition:.3s;
+}
+
+button:hover{
+    background:#1d4ed8;
+}
+
+button:disabled{
+    background:#94a3b8;
+    cursor:not-allowed;
+}
+
+#msg{
+    text-align:center;
+    margin-top:18px;
+    font-size:18px;
+    font-weight:bold;
+}
+
+.success{
+    color:#16a34a;
+}
+
+.error{
+    color:#dc2626;
+}
+
+#successScreen{
+    display:none;
+    text-align:center;
+    animation:show .5s;
+}
+
+#successScreen h1{
+    font-size:45px;
+    color:#16a34a;
+    margin-bottom:10px;
+}
+
+#successScreen p{
+    font-size:34px;
+    color:#1e3a8a;
+    font-weight:bold;
+}
+</style>
+</head>
+
+<body>
+
+<div class="card" id="quiz">
+
+<h2>
+1. أي موقف من الآتي يعكس الحكمة بأفضل صورة؟
+</h2>
+
+<label class="option">
+<input type="radio" name="q" value="A">
+أ) قبل اتخاذ قرار قد يؤثر على الآخرين، استمع لكل الأطراف، وفكر في النتائج، ثم اتخذ قراره.
+</label>
+
+<label class="option">
+<input type="radio" name="q" value="B">
+ب) اتخذ القرار الذي يرضي أغلب الناس حتى لو لم يكن مقتنعًا به.
+</label>
+
+<label class="option">
+<input type="radio" name="q" value="C">
+ج) اتخذ القرار الذي يريحه شخصيًا حتى يتجنب المشكلات.
+</label>
+
+<label class="option">
+<input type="radio" name="q" value="D">
+د) أجّل اتخاذ القرار حتى لا يتحمل مسؤوليته.
+</label>
+
+<button id="btn" onclick="checkAnswer()">إرسال</button>
+
+<div id="msg"></div>
+
+</div>
+
+<div class="card" id="successScreen">
+<h1>ال qr التاني</h1>
+<p>دخول وخروج</p>
+</div>
+
+<script>
+
+let locked=false;
+
+function checkAnswer(){
+
+if(locked)return;
+
+let ans=document.querySelector('input[name="q"]:checked');
+
+if(!ans){
+alert("اختر إجابة أولاً");
+return;
+}
+
+if(ans.value==="A"){
+
+document.getElementById("quiz").style.display="none";
